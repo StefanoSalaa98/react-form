@@ -1,4 +1,8 @@
 import { useState } from 'react'
+//importo FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//importo l'icona che voglio utilizzare
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 function MyMain() {
 
@@ -18,6 +22,14 @@ function MyMain() {
         setNewTask('');
     }
 
+    //funzione che filtra l'array, restituendo tutti gli elementi tranne quello la cui icona è stata cliccata
+    const removeTask = i => {
+        const updatedTasks = tasks.filter((task, taskIndex) => {
+            return taskIndex !== i
+        });
+        setTasks(updatedTasks);
+    }
+
     return (
         <>
             <h1>Lista della spesa</h1>
@@ -32,10 +44,12 @@ function MyMain() {
 
             {/* //lista dei task */}
             <ul>
-                {tasks.map((task, i) => (
+                {tasks.map((task, index) => (
                     <li
-                        key={i}>
+                        key={index}>
                         {task}
+                        {/* quando l'icona viene premuta richiama la funzione reomveTask */}
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => removeTask(index)} />
                     </li>
                 ))}
             </ul>
