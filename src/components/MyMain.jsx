@@ -15,8 +15,9 @@ function MyMain() {
         e.preventDefault();
         // pulisco l'input dell'utente da eventuali spazi vuoti
         const cleanTask = newTask.trim();
-        // inserisco il nuovo elemento nell'array solo se non è una stringa vuota
-        const updatedTasks = cleanTask.length !== 0 ? [...tasks, newTask] : [...tasks];
+        const isPresente = tasks.includes(cleanTask);
+        // inserisco il nuovo elemento nell'array solo se non è una stringa vuota e se non è già presente nella lista
+        const updatedTasks = cleanTask.length !== 0 && !isPresente ? [...tasks, newTask] : [...tasks];
         setTasks(updatedTasks);
         // ripulisco il campo del form (value = {newTask})
         setNewTask('');
@@ -42,7 +43,7 @@ function MyMain() {
                 <button type='submit'>Inserisci un nuovo task</button>
             </form>
 
-            {/* //lista dei task */}
+            {/* lista dei task */}
             <ul>
                 {tasks.map((task, index) => (
                     <li
